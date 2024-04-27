@@ -21,7 +21,7 @@ export const Game = () => {
 
     const randomChance = Math.random() * 100;
     if (randomChance < count / 25) {
-      // handleGameOver();
+      handleGameOver();
     }
   };
 
