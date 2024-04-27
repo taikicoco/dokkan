@@ -1,0 +1,28 @@
+name: create-deploy-pr
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-release-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: check release pr
+        id: check_pr
+        run: |
+          pr_title='Deploy'
+          base_branch='prod'
+          echo "::set-output name=count::$(gh pr list -B $base_branch | wc -l)"
+          echo "::set-output name=pr_title::$pr_title"
+          echo "::set-output name=base_branch::$base_branch"
+
+      - name: create release pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        if: ${{ steps.check_pr.outputs.count == 0 }}
+        run: |
+          gh pr create -B ${{ steps.check_pr.outputs.base_branch }} -t "${{ steps.check_pr.outputs.pr_title }}" -b "Deploy branch"

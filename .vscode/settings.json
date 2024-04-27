@@ -1,0 +1,10 @@
+{
+  // 保存時に eslint によるリントを行います
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "files.insertFinalNewline": true
+}
