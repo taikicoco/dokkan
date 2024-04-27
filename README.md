@@ -1,7 +1,6 @@
 <div align="center">
   <samp>
     
-  # taikicoco.com
-  ## Portfolio
+  # dokkan
   </samp>
 </div>
