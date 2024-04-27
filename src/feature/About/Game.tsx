@@ -5,7 +5,6 @@ import { Button2 } from "@/feature/About/components/Button2";
 export const Game = () => {
   const [count, setCount] = useState(0);
   const [isGame, setIsGame] = useState(false);
-
   const [gameOver, setGameOver] = useState(false);
   const [gameClear, setGameClear] = useState(false);
 
@@ -16,7 +15,7 @@ export const Game = () => {
   const handleClick = () => {
     setCount(count + 1);
 
-    if (count >= 9) {
+    if (count >= 99) {
       handleGameClear();
     }
 
@@ -43,45 +42,55 @@ export const Game = () => {
     setIsGame(false);
   };
 
+  const calculateBackgroundColor = () => {
+    const percentage = Math.min(100, count);
+    return `linear-gradient(to top, hsl(180, 100%, 50%) ${percentage}%, transparent ${percentage}%)`;
+  };
+
   return (
-    <main className="flex flex-col items-center py-24">
-      {gameOver && (
-        <div className="flex flex-col items-center">
-          <h2 className="text-2xl mb-4">Game Over! </h2>
-          <p className="mb-8 text-center">
-            You pressed the button {count} times.
-          </p>
-        </div>
-      )}
+    <div className="flex flex-col min-h-screen">
+      <main
+        className="flex-1 flex flex-col items-center py-24"
+        style={{ background: calculateBackgroundColor() }}
+      >
+        {gameOver && (
+          <div className="flex flex-col items-center">
+            <h2 className="text-2xl mb-4">Game Over!</h2>
+            <p className="mb-8 text-center">
+              You pressed the button {count} times.
+            </p>
+          </div>
+        )}
 
-      {gameClear && (
-        <div className="flex flex-col items-center">
-          <h2 className="text-2xl mb-4">Game Clear! </h2>
-          <p className="mb-8 text-center">
-            You pressed the button {count} times.
-          </p>
-        </div>
-      )}
+        {gameClear && (
+          <div className="flex flex-col items-center">
+            <h2 className="text-2xl mb-4">Game Clear!</h2>
+            <p className="mb-8 text-center">
+              You pressed the button {count} times.
+            </p>
+          </div>
+        )}
 
-      {!isGame ? (
-        <div className="flex flex-col items-center">
-          {gameOver || gameClear ? (
-            <div className="py-8">
-              <Button2 onClick={() => handleReset()}>Try again</Button2>
-            </div>
-          ) : (
-            <>
-              <h2 className="text-2xl mb-4">Game Start!</h2>
-              <Button2 onClick={() => handleStart()}>Start</Button2>
-            </>
-          )}
-        </div>
-      ) : (
-        <div className="flex flex-col items-center">
-          <Button1 onClick={handleClick}>Press !</Button1>
-          <p>{count} times</p>
-        </div>
-      )}
-    </main>
+        {!isGame ? (
+          <div className="flex flex-col items-center">
+            {gameOver || gameClear ? (
+              <div className="py-8">
+                <Button2 onClick={() => handleReset()}>Try again</Button2>
+              </div>
+            ) : (
+              <>
+                <h2 className="text-2xl mb-4">Game Start!!</h2>
+                <Button2 onClick={() => handleStart()}>Start</Button2>
+              </>
+            )}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center">
+            <Button1 onClick={handleClick}>Press !</Button1>
+            <p>{count} times</p>
+          </div>
+        )}
+      </main>
+    </div>
   );
 };
