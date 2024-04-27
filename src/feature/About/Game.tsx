@@ -16,7 +16,7 @@ export const Game = () => {
   const handleClick = () => {
     setCount(count + 1);
 
-    if (count >= 9) {
+    if (count >= 99) {
       handleGameClear();
     }
 
